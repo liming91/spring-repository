@@ -5,7 +5,7 @@ import java.sql.*;
 /**
  * 程序的耦合
  */
-public class JDBCUtil {
+public class JdbcUtil {
     public static void main(String[] args) throws Exception{
         //1.注册驱动
         //DriverManager.deregisterDriver(new com.mysql.jdbc.Driver());
