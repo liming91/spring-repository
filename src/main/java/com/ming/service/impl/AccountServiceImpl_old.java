@@ -7,7 +7,7 @@ import com.ming.util.TransacationManger;
 
 import java.util.List;
 
-public class AccountServiceImpl_old implements AccountService {
+public class AccountServiceImpl_old {
 
     //private AccountDao accountDao= (AccountDao) BeanFactory.getBean("accountDao");
     private AccountDao  accountDao;
