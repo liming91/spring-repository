@@ -1,32 +1,31 @@
 package com.ming.util;
 
-import com.ming.model.Account;
-import com.ming.service.AccountService;
+import com.ming.service.IAccountService;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 public class AccountFactory {
-    private AccountService  accountService;
+    private IAccountService  IAccountService;
     private TransacationManger tx;
-    public final void setAccountService(AccountService accountService) {
-        this.accountService = accountService;
+    public final void setIAccountService(IAccountService IAccountService) {
+        this.IAccountService = IAccountService;
     }
 
     public void setTx(TransacationManger tx) {
         this.tx = tx;
     }
 
-    public AccountService getAccountService(){
-        return (AccountService) Proxy.newProxyInstance(accountService.getClass().getClassLoader(), accountService.getClass().getInterfaces(), new InvocationHandler() {
+    public IAccountService getIAccountService(){
+        return (IAccountService) Proxy.newProxyInstance(IAccountService.getClass().getClassLoader(), IAccountService.getClass().getInterfaces(), new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 Object result=null;
                 try{
                     //1.开启事物
                     tx.createTransaction();
-                    result=method.invoke(accountService,args);
+                    result=method.invoke(IAccountService,args);
                     //3.提交事物
                     tx.commitTransaction();
                    return  result;

@@ -26,7 +26,12 @@ public class ConnectionThredUtil {
         }
     }
 
-
+    /**
+     * 释放资源
+     */
+    public void remove(){
+        connectionThreadLocal.remove();
+    }
 
     public DataSource getDataSource() {
         return dataSource;
@@ -35,4 +40,6 @@ public class ConnectionThredUtil {
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
+
 }
