@@ -1,4 +1,4 @@
-import com.ming.service.UserService;
+import com.ming.service.IUserService;
 import org.junit.Test;
 import org.springframework.aop.ClassFilter;
 import org.springframework.aop.MethodBeforeAdvice;
@@ -13,7 +13,7 @@ public class ProxyFactoryForAop {
     @Test
     public void test1(){
         //定义目标对象
-         UserService  userService = new UserService();
+         IUserService IUserService = new IUserService();
         //定义joinPoint连接点是指程序执行过程中明确的点，如方法的调用或特定异常的抛出，
         // 一般由两个信息确定：方法：表示程序执行点，即在哪个目标方法2，相对点：表示方位，即目标方法的什么位置，比如调用前，调用后
         //连接点就是被拦截到的程序执行点，spring只支持方法类型的连接点，所以在spring中连接点就是被拦截到的方法。
@@ -21,7 +21,7 @@ public class ProxyFactoryForAop {
         Pointcut pointcut = new Pointcut(){
 
             public ClassFilter getClassFilter() {
-                return clazz ->UserService.class.isAssignableFrom(clazz);
+                return clazz -> IUserService.class.isAssignableFrom(clazz);
             }
 
             public MethodMatcher getMethodMatcher() {
@@ -55,11 +55,11 @@ public class ProxyFactoryForAop {
         //创建工程代理对象
         ProxyFactory proxyFactoryBean = new ProxyFactory();
         //设置代理的目标类
-        proxyFactoryBean.setTarget(userService);
+        proxyFactoryBean.setTarget(IUserService);
         //为目标添加增添功能
         proxyFactoryBean.addAdvisor(defaultPointcutAdvisor);
 
-        UserService  pro= (UserService) proxyFactoryBean.getProxy();
+        IUserService pro= (IUserService) proxyFactoryBean.getProxy();
         pro.work("路人");
     }
 }

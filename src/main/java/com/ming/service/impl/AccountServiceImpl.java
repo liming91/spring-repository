@@ -1,13 +1,15 @@
 package com.ming.service.impl;
-
 import com.ming.dao.AccountDao;
 import com.ming.model.Account;
-import com.ming.service.AccountService;
+import com.ming.service.IAccountService;
 import com.ming.util.TransacationManger;
 
 import java.util.List;
 
-public class AccountServiceImpl implements AccountService {
+/**
+ * 账户的业务层实现类
+ */
+public class AccountServiceImpl implements IAccountService {
 
     //private AccountDao accountDao= (AccountDao) BeanFactory.getBean("accountDao");
     private AccountDao  accountDao;
@@ -56,12 +58,7 @@ public class AccountServiceImpl implements AccountService {
         accountDao.updateAccount(targetAccount);
     }
 
-    @Override
-    public String getEat(String eatName) {
-        System.out.println("我被代理的方法，"+eatName);
-        String  re=eatName+",我是被拼接起来的！！！";
-        return re;
-    }
+
 
 
 }

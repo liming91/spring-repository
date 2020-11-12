@@ -2,10 +2,12 @@ package com.ming.service;
 
 
 import com.ming.model.Account;
-
 import java.util.List;
 
-public interface AccountService {
+/**
+ * 账户业务层接口
+ */
+public interface IAccountService {
     /**
      * 查找所有的账户
      * @return
@@ -33,5 +35,4 @@ public interface AccountService {
      */
     public void transfer(String sourceName,String targetName,Float money);
 
-    public String getEat(String eatName);
 }
