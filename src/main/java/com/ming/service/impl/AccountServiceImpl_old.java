@@ -2,12 +2,12 @@ package com.ming.service.impl;
 
 import com.ming.dao.AccountDao;
 import com.ming.model.Account;
-import com.ming.service.AccountService;
+import com.ming.service.IAccountService;
 import com.ming.util.TransacationManger;
 
 import java.util.List;
 
-public class AccountServiceImpl_old implements AccountService {
+public class AccountServiceImpl_old implements IAccountService {
 
     //private AccountDao accountDao= (AccountDao) BeanFactory.getBean("accountDao");
     private AccountDao  accountDao;
@@ -151,10 +151,7 @@ public class AccountServiceImpl_old implements AccountService {
         }
     }
 
-    @Override
-    public String getEat(String eatName) {
-        return null;
-    }
+
 
 
 }

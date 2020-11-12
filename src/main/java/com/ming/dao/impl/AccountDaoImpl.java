@@ -2,6 +2,7 @@ package com.ming.dao.impl;
 
 import com.ming.dao.AccountDao;
 import com.ming.model.Account;
+import com.ming.util.ConnectionThredUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -12,12 +13,12 @@ import java.util.List;
 public class AccountDaoImpl implements AccountDao {
 
     private QueryRunner  queryRunner;
-    private ConnectionUtil conn;
+    private ConnectionThredUtil conn;
     public void setQueryRunner(QueryRunner queryRunner) {
         this.queryRunner = queryRunner;
     }
 
-    public void setConn(ConnectionUtil conn) {
+    public void setConn(ConnectionThredUtil conn) {
         this.conn = conn;
     }
 

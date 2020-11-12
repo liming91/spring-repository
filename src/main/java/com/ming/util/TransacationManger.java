@@ -4,9 +4,9 @@ import javax.sql.DataSource;
 
 public class TransacationManger {
 
-    private static ConnectionUtil connectionUtil;
+    private static ConnectionThredUtil connectionUtil;
 
-    public void setConnectionUtil(ConnectionUtil connectionUtil) {
+    public void setConnectionUtil(ConnectionThredUtil connectionUtil) {
         this.connectionUtil=connectionUtil;
     }
 
