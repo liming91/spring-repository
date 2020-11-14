@@ -2,8 +2,8 @@ package com.ming.model;
 
 public class Account {
     private Integer id;
-    private  String name;
-    private  Float money;
+    private String name;
+    private Float money;
 
     public Integer getId() {
         return id;

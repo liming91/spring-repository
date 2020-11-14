@@ -1,6 +1,6 @@
 package com.ming.service.impl;
 
-import com.ming.dao.AccountDao;
+import com.ming.dao.IAccountDao;
 import com.ming.model.Account;
 import com.ming.service.IAccountService;
 import com.ming.util.TransacationManger;
@@ -10,9 +10,9 @@ import java.util.List;
 public class AccountServiceImpl_old implements IAccountService {
 
     //private AccountDao accountDao= (AccountDao) BeanFactory.getBean("accountDao");
-    private AccountDao  accountDao;
+    private IAccountDao accountDao;
     private TransacationManger tx;
-    public void setAccountDao(AccountDao accountDao) {
+    public void setAccountDao(IAccountDao accountDao) {
         this.accountDao = accountDao;
     }
 

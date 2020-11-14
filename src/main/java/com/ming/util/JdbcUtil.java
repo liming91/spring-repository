@@ -9,7 +9,12 @@ public class JdbcUtil {
     public static void main(String[] args) throws Exception{
         //1.注册驱动
         //DriverManager.deregisterDriver(new com.mysql.jdbc.Driver());
-        Class.forName("com.mysql.jdbc.Driver");
+        //读取配置文件中的key
+        String key =  RedProperties.getProperties("jdbc").toString();
+        System.out.println(key);
+        //利用工厂模式获取配置文件的key
+        //String key=BeanFactory.getBean("jdbc").toString();
+        Class.forName(key);
         //2.获取连接
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/test","liming","liming");
         //3.获取操作数据库的预处理对象
