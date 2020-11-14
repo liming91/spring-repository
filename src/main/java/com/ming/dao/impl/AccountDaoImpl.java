@@ -1,6 +1,6 @@
 package com.ming.dao.impl;
 
-import com.ming.dao.AccountDao;
+import com.ming.dao.IAccountDao;
 import com.ming.model.Account;
 import com.ming.util.ConnectionThredUtil;
 import org.apache.commons.dbutils.QueryRunner;
@@ -10,7 +10,7 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import java.util.List;
 
 
-public class AccountDaoImpl implements AccountDao {
+public class AccountDaoImpl implements IAccountDao {
 
     private QueryRunner  queryRunner;
     private ConnectionThredUtil conn;

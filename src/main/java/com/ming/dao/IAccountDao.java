@@ -4,7 +4,10 @@ import com.ming.model.Account;
 
 import java.util.List;
 
-public interface AccountDao {
+/**
+ * 账户的持久层接口
+ */
+public interface IAccountDao {
 
     /**
      * 查找所有的账户

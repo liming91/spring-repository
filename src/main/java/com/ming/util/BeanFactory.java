@@ -6,6 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+/**
+ * 工厂模式解耦
+ *
+ * 创建bean对象的工厂
+ */
 public class BeanFactory {
 
     //定义一个properties
@@ -25,11 +30,9 @@ public class BeanFactory {
                //获取配置文件所有的key
               String keys=enumeration.nextElement().toString();
               String benaPath=properties.getProperty(keys);
-              //根据反射获取对象
+              //根据反射创建对象
                Object value= Class.forName(benaPath).newInstance();
-               System.out.println("value=====:"+value);
                beans.put(keys,value);
-               System.out.println(beans);
            }
 
        }catch (Exception e){
@@ -46,7 +49,7 @@ public class BeanFactory {
 //        Object bean=null;
 //        try{
 //            String beanPath= properties.getProperty(beanName);
-//            bean=Class.forName(beanPath).newInstance();
+//            bean=Class.forName(beanPath).newInstance();//每次调用默认构造函数创建对象
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }

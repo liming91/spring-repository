@@ -1,15 +1,12 @@
 package com.ming.ui;
 
+/**
+ * 模拟表现层，用于调用业务层实际开发中就servlet
+ */
 public class Client {
 
     public static void main(String[] args) {
 
-        //AccountService accountService = new AccountServiceImpl();
-//        for (int i = 0; i < 5; i++) {
-//            AccountService accountService= (AccountService) BeanFactory.getBean("serviceAccount");
-//            System.out.println(accountService);
-//            accountService.saveAccount();
-//
-//        }
+
     }
 }
