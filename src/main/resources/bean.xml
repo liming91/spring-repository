@@ -1,70 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        https://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean id="accountBeanFactory" class="com.ming.util.AccountFactory">
-        <property name="tx" ref="transaction"></property>
-        <property name="IAccountService" ref="accountService"></property>
-    </bean>
-    <bean id="accountFactory" factory-bean="accountBeanFactory" factory-method="getIAccountService"></bean>
-    <bean id="accountService" class="com.ming.service.impl.AccountServiceImpl">
-        <property name="accountDao" ref="accountDao"></property>
-        <!--<property name="tx" ref="transaction"></property>-->
-    </bean>
-    <bean id="accountDao" class="com.ming.dao.impl.AccountDaoImpl">
-        <property name="queryRunner" ref="runner"></property>
-        <property name="conn" ref="connectionUtil"></property>
-    </bean>
-    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
-        <!-- <constructor-arg name="ds" ref="dataSource"></constructor-arg>-->
-    </bean>
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3307/test"></property>
-        <property name="user" value="liming"></property>
-        <property name="password" value="liming"></property>
-    </bean>
-    <bean id="connectionUtil" class="com.ming.util.ConnectionThredUtil">
-        <property name="dataSource" ref="dataSource"></property>
-    </bean>
-    <bean id="transaction" class="com.ming.util.TransacationManger">
-        <property name="connectionUtil" ref="connectionUtil"></property>
-    </bean>
-    <!-- 注入复杂类型/集合注入-->
-    <bean id="listInjection" class="com.ming.service.impl.ListInjectionImpl">
-        <property name="myArray">
-            <array>
-                <value>aaa</value>
-                <value>bbb</value>
-            </array>
-        </property>
-        <property name="myList">
-            <list>
-                <value>lia</value>
-                <value>lib</value>
-            </list>
-        </property>
-        <property name="mySet">
-            <set>
-                <value>lia</value>
-                <value>lib</value>
-            </set>
-        </property>
-        <property name="myMap">
-            <map>
-                <entry key="a" value="1"></entry>
-                <entry key="b">
-                    <value>2</value>
-                </entry>
-            </map>
-        </property>
-        <property name="myProper">
-            <props>
-                <prop key="prop">prop1</prop>
-                <prop key="prop2">prop2</prop>
-            </props>
-        </property>
-    </bean>
-
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+    <!--  =============基于注解的IOC配置===============-->
+    <!--告知spring创建容器时要扫描的包-->
+    <!-- 配置QueryRunner，它是单例对象所以配置作用域scope-->
+<!--    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">-->
+<!--        &lt;!&ndash;注入数据源没有提供set方法，只能用构造函数注入&ndash;&gt;-->
+<!--        <constructor-arg name="ds" ref="dataSource"></constructor-arg>-->
+<!--    </bean>-->
+<!--    &lt;!&ndash;注入数据源&ndash;&gt;-->
+<!--    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
+<!--        &lt;!&ndash;注入连接数据库的必备信息&ndash;&gt;-->
+<!--        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>-->
+<!--        <property name="jdbcUrl" value="jdbc:mysql://localhost:3307/test"></property>-->
+<!--        <property name="user" value="liming"></property>-->
+<!--        <property name="password" value="liming"></property>-->
+<!--    </bean>-->
 </beans>

@@ -3,31 +3,26 @@ package com.ming.service.impl;
 import com.ming.dao.IAccountDao;
 import com.ming.model.Account;
 import com.ming.service.IAccountService;
-import com.ming.util.TransacationManger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * 账户的业务层实现类
  */
+@Service("accountService")
 public class AccountServiceImpl implements IAccountService {
     //最早的写法
     //private IAccountDao accountDao = new AccountDaoImpl();
     //BeanFactory读取配置的bean.properties的dao
     //private IAccountDao accountDao= (IAccountDao) BeanFactory.getBean("accountDao");
+    @Autowired
     private IAccountDao accountDao;
-    private TransacationManger tx;
-    public void setAccountDao(IAccountDao accountDao) {
-        this.accountDao = accountDao;
-    }
-
-    public void setTx(TransacationManger tx) {
-        this.tx = tx;
-    }
 
     @Override
     public List<Account> findAll() {
-      return accountDao.findAll();
+        return accountDao.findAll();
     }
 
     @Override
@@ -52,16 +47,14 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public void transfer(String sourceName, String targetName, Float money) {
-        Account sourceAccount =accountDao.findAccountByName(sourceName);
-        sourceAccount.setMoney(sourceAccount.getMoney()-money);
+        Account sourceAccount = accountDao.findAccountByName(sourceName);
+        sourceAccount.setMoney(sourceAccount.getMoney() - money);
         accountDao.updateAccount(sourceAccount);
-        Account targetAccount =accountDao.findAccountByName(targetName);
-        int a=4/0;
-        targetAccount.setMoney(targetAccount.getMoney()+money);
+        Account targetAccount = accountDao.findAccountByName(targetName);
+        int a = 4 / 0;
+        targetAccount.setMoney(targetAccount.getMoney() + money);
         accountDao.updateAccount(targetAccount);
     }
-
-
 
 
 }

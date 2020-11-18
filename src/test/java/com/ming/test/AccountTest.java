@@ -1,3 +1,6 @@
+package com.ming.test;
+
+import com.ming.config.SpringConfiguration;
 import com.ming.model.Account;
 import com.ming.service.IAccountService;
 import com.ming.util.AccountProxy;
@@ -11,34 +14,27 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:bean.xml")
+@ContextConfiguration(classes = SpringConfiguration.class)
 public class AccountTest {
     @Autowired
     private IAccountService accountService;
 
     @Test
     public void addTest() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("bean.xml");
-        IAccountService accountService = context.getBean("accountService", IAccountService.class);
         Account account = new Account();
-        account.setName("ddd");
+        account.setName("ccc");
         account.setMoney(1000f);
         accountService.saveAccount(account);
     }
 
     @Test
     public void findAllTest() {
-       /*ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("bean.xml");
-        IAccountService accountService=context.getBean("accountService",IAccountService.class);*/
-        //IAccountService accountService = (IAccountService) BeanFactory.getBean("serviceAccount");
         List<Account> li = accountService.findAll();
         System.out.println(li);
     }
 
     @Test
     public void addTransef() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("bean.xml");
-        IAccountService accountService = context.getBean("accountService", IAccountService.class);
         accountService.transfer("aaa", "bbb", 100f);
     }
 
