@@ -6,21 +6,20 @@ import com.ming.util.ConnectionThredUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
+@Repository("accountDao")
 public class AccountDaoImpl implements IAccountDao {
 
-    private QueryRunner  queryRunner;
-    private ConnectionThredUtil conn;
-    public void setQueryRunner(QueryRunner queryRunner) {
-        this.queryRunner = queryRunner;
-    }
+    @Autowired
+    private QueryRunner queryRunner;
 
-    public void setConn(ConnectionThredUtil conn) {
-        this.conn = conn;
-    }
+    @Autowired
+    private ConnectionThredUtil conn;
+
 
     public List<Account> findAll() {
         try{
