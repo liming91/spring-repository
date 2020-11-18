@@ -31,4 +31,40 @@
     <bean id="transaction" class="com.ming.util.TransacationManger">
         <property name="connectionUtil" ref="connectionUtil"></property>
     </bean>
+    <!-- 注入复杂类型/集合注入-->
+    <bean id="listInjection" class="com.ming.service.impl.ListInjectionImpl">
+        <property name="myArray">
+            <array>
+                <value>aaa</value>
+                <value>bbb</value>
+            </array>
+        </property>
+        <property name="myList">
+            <list>
+                <value>lia</value>
+                <value>lib</value>
+            </list>
+        </property>
+        <property name="mySet">
+            <set>
+                <value>lia</value>
+                <value>lib</value>
+            </set>
+        </property>
+        <property name="myMap">
+            <map>
+                <entry key="a" value="1"></entry>
+                <entry key="b">
+                    <value>2</value>
+                </entry>
+            </map>
+        </property>
+        <property name="myProper">
+            <props>
+                <prop key="prop">prop1</prop>
+                <prop key="prop2">prop2</prop>
+            </props>
+        </property>
+    </bean>
+
 </beans>
