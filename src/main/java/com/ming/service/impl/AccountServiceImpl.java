@@ -3,6 +3,7 @@ package com.ming.service.impl;
 import com.ming.dao.IAccountDao;
 import com.ming.model.Account;
 import com.ming.service.IAccountService;
+import com.ming.util.TransacationManger;
 
 import java.util.List;
 
@@ -15,10 +16,17 @@ public class AccountServiceImpl implements IAccountService {
     //BeanFactory读取配置的bean.properties的dao
     //private IAccountDao accountDao= (IAccountDao) BeanFactory.getBean("accountDao");
 
+    //注入事物
+    private TransacationManger tx;
+
     private IAccountDao accountDao;
 
     public void setAccountDao(IAccountDao accountDao) {
         this.accountDao = accountDao;
+    }
+
+    public void setTx(TransacationManger tx) {
+        this.tx = tx;
     }
 
     @Override
@@ -48,18 +56,27 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public void transfer(String sourceName, String targetName, Float money) {
-        //1.根据名称查询转出账户
-        Account sourceAccount = accountDao.findAccountByName(sourceName);
-        //2.根据名称查询转入账户
-        Account targetAccount = accountDao.findAccountByName(targetName);
-        //3.转出账户减钱
-        sourceAccount.setMoney(sourceAccount.getMoney() - money);
-        //4.转入账户加钱
-        targetAccount.setMoney(targetAccount.getMoney() + money);
-        //5.更新账户
-        accountDao.updateAccount(sourceAccount);
-        int a = 4 / 0;
-        accountDao.updateAccount(targetAccount);
+        try {
+            tx.createTransaction();
+            //1.根据名称查询转出账户
+            Account sourceAccount = accountDao.findAccountByName(sourceName);
+            //2.根据名称查询转入账户
+            Account targetAccount = accountDao.findAccountByName(targetName);
+            //3.转出账户减钱
+            sourceAccount.setMoney(sourceAccount.getMoney() - money);
+            //4.转入账户加钱
+            targetAccount.setMoney(targetAccount.getMoney() + money);
+            tx.commitTransaction();
+            //5.更新账户
+            accountDao.updateAccount(sourceAccount);
+            int a=2/0;
+            accountDao.updateAccount(targetAccount);
+        } catch (Exception e) {
+           tx.rollbackTransaction();
+           e.printStackTrace();
+        } finally {
+            tx.releaseTransaction();
+        }
     }
 
 

@@ -26,8 +26,6 @@
     </bean>
     <!-- 配置QueryRunner，它是单例对象所以配置作用域scope-->
     <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
-        <!--注入数据源没有提供set方法，只能用构造函数注入-->
-        <constructor-arg name="ds" ref="dataSource"></constructor-arg>
     </bean>
     <!--注入数据源-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
