@@ -3,6 +3,7 @@ package com.ming.test;
 import com.ming.model.Account;
 import com.ming.service.IAccountService;
 import com.ming.util.AccountProxy;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:bean.xml")
 public class AccountTest {
-
+    Logger logger = Logger.getLogger(AccountTest.class);
     @Autowired
     private IAccountService accountService;
 

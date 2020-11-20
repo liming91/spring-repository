@@ -54,10 +54,14 @@ public class AccountServiceImpl implements IAccountService {
         accountDao.deleteAccount(id);
     }
 
+    /**
+     * 此方法如抛出异常事物不会回滚，添加aop控制事物
+     * @param sourceName 转出账户
+     * @param targetName 转入账户
+     * @param money      金额
+     */
     @Override
     public void transfer(String sourceName, String targetName, Float money) {
-        try {
-            tx.createTransaction();
             //1.根据名称查询转出账户
             Account sourceAccount = accountDao.findAccountByName(sourceName);
             //2.根据名称查询转入账户
@@ -66,17 +70,10 @@ public class AccountServiceImpl implements IAccountService {
             sourceAccount.setMoney(sourceAccount.getMoney() - money);
             //4.转入账户加钱
             targetAccount.setMoney(targetAccount.getMoney() + money);
-            tx.commitTransaction();
             //5.更新账户
             accountDao.updateAccount(sourceAccount);
             int a=2/0;
             accountDao.updateAccount(targetAccount);
-        } catch (Exception e) {
-           tx.rollbackTransaction();
-           e.printStackTrace();
-        } finally {
-            tx.releaseTransaction();
-        }
     }
 
 
