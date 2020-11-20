@@ -6,19 +6,35 @@
         https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         https://www.springframework.org/schema/context/spring-context.xsd">
-    <!--  =============基于注解的IOC配置===============-->
-    <!--告知spring创建容器时要扫描的包-->
+    <context:component-scan base-package="com.ming"></context:component-scan>
+    <!-- 配置service对象-->
+    <bean id="accountService" class="com.ming.service.impl.AccountServiceImpl">
+        <!-- 注入dao对象-->
+        <property name="accountDao" ref="accountDao"></property>
+    </bean>
+    <!-- 配置dao对象-->
+    <bean id="accountDao" class="com.ming.dao.impl.AccountDaoImpl">
+        <!-- 注入queryRunner对象-->
+        <property name="queryRunner" ref="runner"></property>
+        <property name="conn" ref="connUtile"></property>
+    </bean>
+    <bean id="connUtile" class="com.ming.util.ConnectionThredUtil">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <bean id="tx" class="com.ming.util.TransacationManger">
+        <property name="connectionUtil" ref="connUtile"></property>
+    </bean>
     <!-- 配置QueryRunner，它是单例对象所以配置作用域scope-->
-<!--    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">-->
-<!--        &lt;!&ndash;注入数据源没有提供set方法，只能用构造函数注入&ndash;&gt;-->
-<!--        <constructor-arg name="ds" ref="dataSource"></constructor-arg>-->
-<!--    </bean>-->
-<!--    &lt;!&ndash;注入数据源&ndash;&gt;-->
-<!--    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
-<!--        &lt;!&ndash;注入连接数据库的必备信息&ndash;&gt;-->
-<!--        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>-->
-<!--        <property name="jdbcUrl" value="jdbc:mysql://localhost:3307/test"></property>-->
-<!--        <property name="user" value="liming"></property>-->
-<!--        <property name="password" value="liming"></property>-->
-<!--    </bean>-->
+    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
+        <!--注入数据源没有提供set方法，只能用构造函数注入-->
+        <constructor-arg name="ds" ref="dataSource"></constructor-arg>
+    </bean>
+    <!--注入数据源-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!--注入连接数据库的必备信息-->
+        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3307/test"></property>
+        <property name="user" value="liming"></property>
+        <property name="password" value="liming"></property>
+    </bean>
 </beans>

@@ -16,13 +16,14 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringConfiguration.class)
 public class AccountTest {
+
     @Autowired
     private IAccountService accountService;
 
     @Test
     public void addTest() {
         Account account = new Account();
-        account.setName("ccc");
+        account.setName("ddd");
         account.setMoney(1000f);
         accountService.saveAccount(account);
     }
