@@ -6,20 +6,24 @@ import com.ming.util.ConnectionThredUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("accountDao")
 public class AccountDaoImpl implements IAccountDao {
 
-    @Autowired
+
     private QueryRunner queryRunner;
 
-    @Autowired
+
     private ConnectionThredUtil conn;
 
+    public void setQueryRunner(QueryRunner queryRunner) {
+        this.queryRunner = queryRunner;
+    }
+
+    public void setConn(ConnectionThredUtil conn) {
+        this.conn = conn;
+    }
 
     public List<Account> findAll() {
         try{
@@ -62,9 +66,16 @@ public class AccountDaoImpl implements IAccountDao {
     }
 
     @Override
-    public Account findAccountByName(String accountName) {
+    public Account  findAccountByName(String accountName) {
         try{
-            return queryRunner.query(conn.getThredConnection(),"select * from account where name = ? ",new BeanHandler<Account>(Account.class),accountName);
+            List<Account> list =  queryRunner.query(conn.getThredConnection(),"select * from account where name = ? ",new BeanListHandler<Account>(Account.class),accountName);
+            if(list.size()==0 || list ==null){
+                return null;
+            }
+            if(list.size()>1){
+                throw new RuntimeException("结果集不为1");
+            }
+            return list.get(0);
         }catch (Exception e){
             throw new RuntimeException(e);
         }

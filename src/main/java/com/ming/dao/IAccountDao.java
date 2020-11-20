@@ -28,6 +28,11 @@ public interface IAccountDao {
 
     void deleteAccount(Integer id);
 
+    /**
+     * 根据名称查询账户
+     * @param accountName
+     * @return 如果有唯一的一个结果就返回，如果没有结果返回null,如果有多个结果抛异常
+     */
     Account findAccountByName(String accountName);
 
 
