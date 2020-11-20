@@ -1,6 +1,5 @@
 package com.ming.test;
 
-import com.ming.config.SpringConfiguration;
 import com.ming.model.Account;
 import com.ming.service.IAccountService;
 import com.ming.util.AccountProxy;
@@ -14,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = SpringConfiguration.class)
+@ContextConfiguration(locations = "classpath:bean.xml")
 public class AccountTest {
 
     @Autowired
