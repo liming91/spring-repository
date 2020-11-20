@@ -47,9 +47,4 @@ public class AccountTest {
 
     }
 
-    @Test
-    public void addTansef() {
-        //accountService.transfer("aaa", "bbb", 100f);
-    }
-
 }
