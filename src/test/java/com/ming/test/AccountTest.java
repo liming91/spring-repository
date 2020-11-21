@@ -2,7 +2,7 @@ package com.ming.test;
 
 import com.ming.model.Account;
 import com.ming.service.IAccountService;
-import com.ming.util.AccountProxy;
+import com.ming.util.aop.AccountProxy;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
