@@ -6,6 +6,12 @@
         https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop
         https://www.springframework.org/schema/aop/spring-aop.xsd">
+    <bean id="accountProxy" factory-method="getAccountService"  factory-bean="proxyAccountService"></bean>
+    <!--用动态代理Proxy将accoutService被代理对象-->
+    <bean id="proxyAccountService" class="com.ming.util.aop.AccountFactory">
+        <property name="accountService" ref="accountService"></property>
+        <property name="tx" ref="tx"></property>
+    </bean>
     <!-- 配置service对象-->
     <bean id="accountService" class="com.ming.service.impl.AccountServiceImpl">
         <!-- 注入dao对象-->
@@ -44,10 +50,5 @@
 <!--            <aop:after method="releaseTransaction" pointcut-ref="pointTx"></aop:after>-->
 <!--        </aop:aspect>-->
 <!--    </aop:config>-->
-    <aop:config>
-        <aop:pointcut id="pointTx" expression="execution(* com.ming.service.impl.*.*(..))"/>
 
-        <aop:advisor advice-ref="tx" pointcut-ref="pointTx"></aop:advisor>
-
-    </aop:config>
 </beans>
