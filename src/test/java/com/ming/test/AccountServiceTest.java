@@ -58,4 +58,10 @@ public class AccountServiceTest {
         accountService.deleteAccount(1);
     }
 
+    @Test
+    public void testTransfer() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("bean.xml");
+        IAccountService accountService = (IAccountService) context.getBean("accountProxy");
+        accountService.transfer("aaa", "bbb", 100f);
+    }
 }

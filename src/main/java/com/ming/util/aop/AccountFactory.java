@@ -8,25 +8,27 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 public class AccountFactory {
-    private IAccountService  IAccountService;
+    private IAccountService accountService;
+
     private TransacationManger tx;
-    public final void setIAccountService(IAccountService IAccountService) {
-        this.IAccountService = IAccountService;
+
+    public final void setAccountService(IAccountService accountService) {
+        this.accountService = accountService;
     }
 
     public void setTx(TransacationManger tx) {
         this.tx = tx;
     }
 
-    public IAccountService getIAccountService(){
-        return (IAccountService) Proxy.newProxyInstance(IAccountService.getClass().getClassLoader(), IAccountService.getClass().getInterfaces(), new InvocationHandler() {
+    public IAccountService getAccountService(){
+        return (IAccountService) Proxy.newProxyInstance(accountService.getClass().getClassLoader(), accountService.getClass().getInterfaces(), new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 Object result=null;
                 try{
                     //1.开启事物
                     tx.createTransaction();
-                    result=method.invoke(IAccountService,args);
+                    result=method.invoke(accountService,args);
                     //3.提交事物
                     tx.commitTransaction();
                    return  result;
@@ -41,4 +43,6 @@ public class AccountFactory {
             }
         });
     }
+
+
 }
