@@ -1,11 +1,10 @@
 package com.ming.util;
 
 import org.apache.log4j.Logger;
-
 /**
  * 事物管理
  */
-public class TransacationManger {
+public class TransacationManger{
    private static Logger logger = Logger.getLogger(TransacationManger.class);
     //注入当前线程的连接
     private static ConnectionThredUtil connectionUtil;

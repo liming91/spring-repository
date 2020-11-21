@@ -35,13 +35,19 @@
         <property name="password" value="liming"></property>
     </bean>
     <!--配置aop-->
+<!--    <aop:config>-->
+<!--        <aop:aspect id="txManager" ref="tx">-->
+<!--            <aop:pointcut id="pointTx" expression="execution(* com.ming.service.impl.*.*(..))"/>-->
+<!--            <aop:before method="createTransaction" pointcut-ref="pointTx"></aop:before>-->
+<!--            <aop:after-returning method="commitTransaction" pointcut-ref="pointTx"></aop:after-returning>-->
+<!--            <aop:after-throwing method="rollbackTransaction" pointcut-ref="pointTx"></aop:after-throwing>-->
+<!--            <aop:after method="releaseTransaction" pointcut-ref="pointTx"></aop:after>-->
+<!--        </aop:aspect>-->
+<!--    </aop:config>-->
     <aop:config>
-        <aop:aspect id="txManager" ref="tx">
-            <aop:pointcut id="pointTx" expression="execution(* com.ming.service.impl.*.*(..))"/>
-            <aop:before method="createTransaction" pointcut-ref="pointTx"></aop:before>
-            <aop:after-returning method="commitTransaction" pointcut-ref="pointTx"></aop:after-returning>
-            <aop:after-throwing method="rollbackTransaction" pointcut-ref="pointTx"></aop:after-throwing>
-            <aop:after method="releaseTransaction" pointcut-ref="pointTx"></aop:after>
-        </aop:aspect>
+        <aop:pointcut id="pointTx" expression="execution(* com.ming.service.impl.*.*(..))"/>
+
+        <aop:advisor advice-ref="tx" pointcut-ref="pointTx"></aop:advisor>
+
     </aop:config>
 </beans>
