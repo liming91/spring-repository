@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        https://www.springframework.org/schema/context/spring-context.xsd">
-    <context:component-scan base-package="com.ming"></context:component-scan>
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
     <!-- 配置service对象-->
     <bean id="accountService" class="com.ming.service.impl.AccountServiceImpl">
         <!-- 注入dao对象-->
@@ -26,8 +25,6 @@
     </bean>
     <!-- 配置QueryRunner，它是单例对象所以配置作用域scope-->
     <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
-        <!--注入数据源没有提供set方法，只能用构造函数注入-->
-        <constructor-arg name="ds" ref="dataSource"></constructor-arg>
     </bean>
     <!--注入数据源-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -37,4 +34,20 @@
         <property name="user" value="liming"></property>
         <property name="password" value="liming"></property>
     </bean>
+    <!--配置aop-->
+<!--    <aop:config>-->
+<!--        <aop:aspect id="txManager" ref="tx">-->
+<!--            <aop:pointcut id="pointTx" expression="execution(* com.ming.service.impl.*.*(..))"/>-->
+<!--            <aop:before method="createTransaction" pointcut-ref="pointTx"></aop:before>-->
+<!--            <aop:after-returning method="commitTransaction" pointcut-ref="pointTx"></aop:after-returning>-->
+<!--            <aop:after-throwing method="rollbackTransaction" pointcut-ref="pointTx"></aop:after-throwing>-->
+<!--            <aop:after method="releaseTransaction" pointcut-ref="pointTx"></aop:after>-->
+<!--        </aop:aspect>-->
+<!--    </aop:config>-->
+    <aop:config>
+        <aop:pointcut id="pointTx" expression="execution(* com.ming.service.impl.*.*(..))"/>
+
+        <aop:advisor advice-ref="tx" pointcut-ref="pointTx"></aop:advisor>
+
+    </aop:config>
 </beans>
