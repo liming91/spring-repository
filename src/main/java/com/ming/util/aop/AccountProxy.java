@@ -1,14 +1,14 @@
-package com.ming.util;
+package com.ming.util.aop;
 
+import com.ming.util.TransacationManger;
 import org.springframework.cglib.proxy.InvocationHandler;
 import org.springframework.cglib.proxy.Proxy;
 
 import java.lang.reflect.Method;
-import java.util.PrimitiveIterator;
 
 public class AccountProxy implements InvocationHandler {
     private Object target;
-    private  TransacationManger tx;
+    private TransacationManger tx;
 
     public void setTarget(Object target) {
         this.target = target;

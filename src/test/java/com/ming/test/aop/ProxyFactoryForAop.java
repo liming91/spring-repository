@@ -1,4 +1,4 @@
-//package com.ming.test;
+package com.ming.test.aop;//package com.ming.test;
 //
 //import com.ming.service.IUserService;
 //import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.ming.test;
+package com.ming.test.aop;
 
 import com.ming.service.IUserService;
 import com.ming.service.impl.UserServiceImpl;
