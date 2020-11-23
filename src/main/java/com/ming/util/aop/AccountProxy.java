@@ -21,16 +21,16 @@ public class AccountProxy implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
        try{
-           TransacationManger.createTransaction();
+           tx.createTransaction();
            Object result  = method.invoke(this.target, args);
            System.out.println("result==:"+result);
-           TransacationManger.commitTransaction();
+           tx.commitTransaction();
            return result;
        }catch (Exception e){
-           TransacationManger.rollbackTransaction();
+           tx.rollbackTransaction();
            throw  new RuntimeException(e);
        }finally {
-           TransacationManger.releaseTransaction();
+           tx.releaseTransaction();
        }
     }
 

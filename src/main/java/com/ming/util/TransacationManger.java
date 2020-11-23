@@ -1,24 +1,32 @@
 package com.ming.util;
 
 import org.apache.log4j.Logger;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 /**
  * 事物管理
  */
+@Component
+@Aspect
 public class TransacationManger{
    private static Logger logger = Logger.getLogger(TransacationManger.class);
     //注入当前线程的连接
-    private static ConnectionThredUtil connectionUtil;
+    @Autowired
+    private  ConnectionThredUtil connectionUtil;
 
-    public void setConnectionUtil(ConnectionThredUtil connectionUtil) {
-        this.connectionUtil = connectionUtil;
+    @Pointcut("execution(* com.ming.service.impl.*.*(..))")
+    public void pointCut(){
+
     }
-
     /**
      * 开启事物
      */
-    public static void createTransaction() {
+    //@Before("pointCut()")
+    public  void createTransaction() {
         try {
-            logger.info("开启事物");
             connectionUtil.getThredConnection().setAutoCommit(false);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -28,9 +36,9 @@ public class TransacationManger{
     /**
      * 提交事物
      */
-    public static void commitTransaction() {
+   // @AfterReturning("pointCut()")
+    public  void commitTransaction() {
         try {
-            logger.info("提交事物");
             connectionUtil.getThredConnection().commit();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -40,9 +48,9 @@ public class TransacationManger{
     /**
      * 回滚事物
      */
-    public static void rollbackTransaction() {
+    //@AfterThrowing("pointCut()")
+    public  void rollbackTransaction() {
         try {
-            logger.info("回滚事物");
             connectionUtil.getThredConnection().rollback();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -52,13 +60,37 @@ public class TransacationManger{
     /**
      * 释放资源
      */
-    public static void releaseTransaction() {
+    //@After("pointCut()")
+    public  void releaseTransaction() {
         try {
-            logger.debug("释放资源");
             connectionUtil.getThredConnection().close();//关闭连接，释放资源到连接池
             connectionUtil.remove();//解绑线程与连接
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 环绕通知
+     * @param point
+     *
+     */
+    @Around("pointCut()")
+    public Object aroundMethod(ProceedingJoinPoint point) throws Throwable {
+        try {
+            logger.info("环绕通知的前置通知执行了...");
+            connectionUtil.getThredConnection().setAutoCommit(false);
+            Object object = point.proceed(point.getArgs());
+            logger.info("环绕通知的后置通知执行了...");
+            connectionUtil.getThredConnection().commit();
+            return object;
+        } catch (Throwable throwable) {
+            logger.info("环绕通知的异常通知执行了...");
+            connectionUtil.getThredConnection().rollback();
+            throw new RuntimeException(throwable);
+        }finally {
+            logger.info("环绕通知的最终通知执行了...");
+            connectionUtil.getThredConnection().close();
         }
     }
 }
