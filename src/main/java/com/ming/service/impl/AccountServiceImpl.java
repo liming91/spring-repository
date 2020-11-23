@@ -4,14 +4,12 @@ import com.ming.dao.IAccountDao;
 import com.ming.model.Account;
 import com.ming.service.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * 账户的业务层实现类
  */
-@Service
 public class AccountServiceImpl implements IAccountService {
     //最早的写法
     //private IAccountDao accountDao = new AccountDaoImpl();

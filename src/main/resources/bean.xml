@@ -9,6 +9,7 @@
         https://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/context
         https://www.springframework.org/schema/context/spring-context.xsd">
+<!--    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>-->
 
 <!--    <bean id="accountProxy" factory-method="getAccountService"  factory-bean="proxyAccountService"></bean>-->
 <!--    &lt;!&ndash;用动态代理Proxy将accoutService被代理对象&ndash;&gt;-->
@@ -36,7 +37,7 @@
 <!--    &lt;!&ndash; 配置QueryRunner，它是单例对象所以配置作用域scope&ndash;&gt;-->
 <!--    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">-->
 <!--    </bean>-->
-<!--&lt;!&ndash;    &lt;!&ndash;注入数据源&ndash;&gt;&ndash;&gt;-->
+<!--    &lt;!&ndash; 注入数据源&ndash;&gt;-->
 <!--    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
 <!--        &lt;!&ndash;注入连接数据库的必备信息&ndash;&gt;-->
 <!--        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>-->
@@ -44,7 +45,7 @@
 <!--        <property name="user" value="liming"></property>-->
 <!--        <property name="password" value="liming"></property>-->
 <!--    </bean>-->
-    <!--配置aop-->
+<!--&lt;!&ndash;    配置aop&ndash;&gt;-->
 <!--    <aop:config>-->
 <!--        <aop:aspect id="txManager" ref="tx">-->
 <!--            <aop:pointcut id="pointTx" expression="execution(* com.ming.service.impl.*.*(..))"/>-->
@@ -54,5 +55,4 @@
 <!--            <aop:after method="releaseTransaction" pointcut-ref="pointTx"></aop:after>-->
 <!--        </aop:aspect>-->
 <!--    </aop:config>-->
-<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 </beans>
