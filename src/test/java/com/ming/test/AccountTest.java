@@ -1,5 +1,6 @@
 package com.ming.test;
 
+import com.ming.config.SpringConfiguration;
 import com.ming.model.Account;
 import com.ming.service.IAccountService;
 import com.ming.util.aop.AccountProxy;
@@ -14,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:bean.xml")
+@ContextConfiguration(classes = SpringConfiguration.class)
 public class AccountTest {
     Logger logger = Logger.getLogger(AccountTest.class);
     @Autowired
@@ -23,7 +24,7 @@ public class AccountTest {
     @Test
     public void addTest() {
         Account account = new Account();
-        account.setName("ddd");
+        account.setName("ff");
         account.setMoney(1000f);
         accountService.saveAccount(account);
     }

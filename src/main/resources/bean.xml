@@ -2,44 +2,48 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop
-        https://www.springframework.org/schema/aop/spring-aop.xsd">
-    <bean id="accountProxy" factory-method="getAccountService"  factory-bean="proxyAccountService"></bean>
-    <!--用动态代理Proxy将accoutService被代理对象-->
-    <bean id="proxyAccountService" class="com.ming.util.aop.AccountFactory">
-        <property name="accountService" ref="accountService"></property>
-        <property name="tx" ref="tx"></property>
-    </bean>
-    <!-- 配置service对象-->
-    <bean id="accountService" class="com.ming.service.impl.AccountServiceImpl">
-        <!-- 注入dao对象-->
-        <property name="accountDao" ref="accountDao"></property>
-    </bean>
-    <!-- 配置dao对象-->
-    <bean id="accountDao" class="com.ming.dao.impl.AccountDaoImpl">
-        <!-- 注入queryRunner对象-->
-        <property name="queryRunner" ref="runner"></property>
-        <property name="conn" ref="connUtile"></property>
-    </bean>
-    <bean id="connUtile" class="com.ming.util.ConnectionThredUtil">
-        <property name="dataSource" ref="dataSource"></property>
-    </bean>
-    <bean id="tx" class="com.ming.util.TransacationManger">
-        <property name="connectionUtil" ref="connUtile"></property>
-    </bean>
-    <!-- 配置QueryRunner，它是单例对象所以配置作用域scope-->
-    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
-    </bean>
-    <!--注入数据源-->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <!--注入连接数据库的必备信息-->
-        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3307/test"></property>
-        <property name="user" value="liming"></property>
-        <property name="password" value="liming"></property>
-    </bean>
+        https://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+<!--    <bean id="accountProxy" factory-method="getAccountService"  factory-bean="proxyAccountService"></bean>-->
+<!--    &lt;!&ndash;用动态代理Proxy将accoutService被代理对象&ndash;&gt;-->
+<!--    <bean id="proxyAccountService" class="com.ming.util.aop.AccountFactory">-->
+<!--        <property name="accountService" ref="accountService"></property>-->
+<!--        <property name="tx" ref="tx"></property>-->
+<!--    </bean>-->
+<!--    &lt;!&ndash; 配置service对象&ndash;&gt;-->
+<!--    <bean id="accountService" class="com.ming.service.impl.AccountServiceImpl">-->
+<!--        &lt;!&ndash; 注入dao对象&ndash;&gt;-->
+<!--        <property name="accountDao" ref="accountDao"></property>-->
+<!--    </bean>-->
+<!--    &lt;!&ndash; 配置dao对象&ndash;&gt;-->
+<!--    <bean id="accountDao" class="com.ming.dao.impl.AccountDaoImpl">-->
+<!--        &lt;!&ndash; 注入queryRunner对象&ndash;&gt;-->
+<!--        <property name="queryRunner" ref="runner"></property>-->
+<!--        <property name="conn" ref="connUtile"></property>-->
+<!--    </bean>-->
+<!--    <bean id="connUtile" class="com.ming.util.ConnectionThredUtil">-->
+<!--        <property name="dataSource" ref="dataSource"></property>-->
+<!--    </bean>-->
+<!--    <bean id="tx" class="com.ming.util.TransacationManger">-->
+<!--        <property name="connectionUtil" ref="connUtile"></property>-->
+<!--    </bean>-->
+<!--    &lt;!&ndash; 配置QueryRunner，它是单例对象所以配置作用域scope&ndash;&gt;-->
+<!--    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">-->
+<!--    </bean>-->
+<!--&lt;!&ndash;    &lt;!&ndash;注入数据源&ndash;&gt;&ndash;&gt;-->
+<!--    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
+<!--        &lt;!&ndash;注入连接数据库的必备信息&ndash;&gt;-->
+<!--        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>-->
+<!--        <property name="jdbcUrl" value="jdbc:mysql://localhost:3307/test"></property>-->
+<!--        <property name="user" value="liming"></property>-->
+<!--        <property name="password" value="liming"></property>-->
+<!--    </bean>-->
     <!--配置aop-->
 <!--    <aop:config>-->
 <!--        <aop:aspect id="txManager" ref="tx">-->
@@ -50,5 +54,5 @@
 <!--            <aop:after method="releaseTransaction" pointcut-ref="pointTx"></aop:after>-->
 <!--        </aop:aspect>-->
 <!--    </aop:config>-->
-
+<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 </beans>

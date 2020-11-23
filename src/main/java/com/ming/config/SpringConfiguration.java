@@ -1,10 +1,7 @@
 package com.ming.config;
 
 import com.ming.util.JdbcProConfig;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 
 /**
  * 该类是一个配置类，它的作用和bean.xml是一样的
@@ -13,6 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 @ComponentScan(basePackages = {"com.ming"})
 @PropertySource("classpath:jdbc.properties")
 @Import(value = JdbcProConfig.class)
+@EnableAspectJAutoProxy
 public class SpringConfiguration {
 
 }
