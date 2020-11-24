@@ -1,6 +1,5 @@
 package com.ming.test.jdbctemplate;
 
-import com.ming.config.SpringAnnotionConfigruation;
 import com.ming.model.Account;
 import com.ming.service.jdbctemplate.IAccountService;
 import org.junit.Test;
@@ -13,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * 事物控制
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = SpringAnnotionConfigruation.class)
+@ContextConfiguration(locations = "classpath:jdbcTemplate.xml")
 public class TxTest {
     @Autowired
     private IAccountService accountService;
