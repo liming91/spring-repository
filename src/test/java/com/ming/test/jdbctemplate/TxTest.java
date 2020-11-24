@@ -1,5 +1,7 @@
 package com.ming.test.jdbctemplate;
 
+import com.ming.config.SpringAnnotionConfigruation;
+import com.ming.model.Account;
 import com.ming.service.jdbctemplate.IAccountService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,10 +13,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * 事物控制
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:jdbcTemplate.xml")
+@ContextConfiguration(classes = SpringAnnotionConfigruation.class)
 public class TxTest {
     @Autowired
     private IAccountService accountService;
+
+    @Test
+    public void findByIDTest() {
+        Account account = accountService.findAccountById(1);
+        System.out.println(account);
+    }
 
     @Test
     public void transferTest() {

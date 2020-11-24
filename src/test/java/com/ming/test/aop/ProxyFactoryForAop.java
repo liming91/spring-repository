@@ -1,5 +1,4 @@
-package com.ming.test.aop;//package com.ming.test;
-//
+//package com.ming.test.aop;
 //import com.ming.service.IUserService;
 //import org.junit.Test;
 //import org.springframework.aop.ClassFilter;

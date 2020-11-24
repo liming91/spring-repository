@@ -3,14 +3,18 @@ package com.ming.service.jdbctemplate.impl;
 import com.ming.dao.dbcteplate.IAccountDao;
 import com.ming.model.Account;
 import com.ming.service.jdbctemplate.IAccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+@Service("accountService")
+@Transactional(propagation = Propagation.SUPPORTS,readOnly = true)//只读型事物配置
 public class AccountServiceImpl implements IAccountService {
 
+    @Autowired
     private IAccountDao accountDao;
 
-    public void setAccountDao(IAccountDao accountDao) {
-        this.accountDao = accountDao;
-    }
 
     @Override
     public Account findAccountById(Integer accountId) {
@@ -21,8 +25,8 @@ public class AccountServiceImpl implements IAccountService {
     public Account findAccountByName(String accountName) {
         return accountDao.findAccountByName(accountName);
     }
-
-
+    //需要的是读写型事物配置
+    @Transactional(propagation = Propagation.REQUIRED,readOnly = false)
     @Override
     public void transfer(String sourceName, String targetName, Float money) {
         //1.根据名称查询转出账户
@@ -35,7 +39,7 @@ public class AccountServiceImpl implements IAccountService {
         targetAccount.setMoney(targetAccount.getMoney() + money);
         //5.更新账户
         accountDao.updateAccount(sourceAccount);
-        //int a=2/0;
+        int a=2/0;
         accountDao.updateAccount(targetAccount);
     }
 }

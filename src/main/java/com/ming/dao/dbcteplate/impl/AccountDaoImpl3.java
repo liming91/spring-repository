@@ -2,31 +2,25 @@ package com.ming.dao.dbcteplate.impl;
 
 import com.ming.dao.dbcteplate.IAccountDao;
 import com.ming.model.Account;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import java.util.List;
 
 /**
  * 基于jdbcTemplate的账户持久层实现类
  */
-@Repository("accountDao")
-public class AccountDaoImpl  implements IAccountDao {
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+public class AccountDaoImpl3 extends JdbcDaoSupport implements IAccountDao {
 
     @Override
     public Account findAccountById(Integer accountId) {
-        List<Account> accountList = jdbcTemplate.query("select * from account where id = ? ",new BeanPropertyRowMapper<Account>(Account.class),accountId);
+        List<Account> accountList = super.getJdbcTemplate().query("select * from account where id = ? ",new BeanPropertyRowMapper<Account>(Account.class),accountId);
         return accountList.isEmpty()?null:accountList.get(0);
     }
 
     @Override
     public Account findAccountByName(String accountName) {
-        List<Account> accountList = jdbcTemplate.query("select * from account where name = ? ",
+        List<Account> accountList = super.getJdbcTemplate().query("select * from account where name = ? ",
                 new BeanPropertyRowMapper<Account>(Account.class),accountName);
         if(accountList.isEmpty()){
             return null;
@@ -39,6 +33,6 @@ public class AccountDaoImpl  implements IAccountDao {
 
     @Override
     public void updateAccount(Account account) {
-        jdbcTemplate.update("update account set name = ? , money = ? where id = ? ",account.getName(),account.getMoney(),account.getId());
+        super.getJdbcTemplate().update("update account set name = ? , money = ? where id = ? ",account.getName(),account.getMoney(),account.getId());
     }
 }
