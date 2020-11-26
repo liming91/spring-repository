@@ -18,6 +18,7 @@ import java.util.List;
 @ContextConfiguration(classes = SpringConfiguration.class)
 public class AccountTest {
     Logger logger = Logger.getLogger(AccountTest.class);
+
     @Autowired
     private IAccountService accountService;
 
